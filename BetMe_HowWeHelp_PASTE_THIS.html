@@ -1,0 +1,726 @@
+<style>
+/* ═══════════════════════════════════════════════════════════════════════
+   BetMe Services — "How We Help" service menu page (EN / ES)
+   Pure HTML + CSS. No JavaScript, no vector markup, no inline handlers,
+   no dynamic classes — nothing for GHL's sanitizer to strip.
+   The language switch is two radio inputs + :checked sibling selectors:
+   every bilingual string lives twice, as lang="en" and lang="es".
+   Everything namespaced under #bm-help so GHL's own CSS can't reach in.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+#bm-help{
+  width:100vw !important;
+  max-width:100vw !important;
+  margin-left:calc(-50vw + 50%) !important;
+  overflow-x:hidden !important;
+  position:relative !important;
+
+  --navy:#1B2A4A;
+  --navy-deep:#14203A;
+  --navy-card:#1F3053;
+  --navy-lift:#22355C;
+  --blue:#5BBCD6;
+  --gold:#F0A830;
+  --ink:#FFFFFF;
+  --soft:rgba(255,255,255,.76);
+  --faint:rgba(255,255,255,.52);
+  --line:rgba(255,255,255,.13);
+  --line-strong:rgba(255,255,255,.24);
+
+  background:var(--navy-deep);
+  color:var(--ink);
+  font-family:'Instrument Sans',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+#bm-help *{box-sizing:border-box}
+#bm-help p{margin:0 0 14px}
+#bm-help p:last-child{margin-bottom:0}
+#bm-help a{color:inherit}
+#bm-help .bm-wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+#bm-help .bm-eyebrow{
+  font-family:'Geist Mono',ui-monospace,'Cascadia Mono',Consolas,monospace;
+  font-size:11.5px;letter-spacing:.20em;text-transform:uppercase;
+  color:var(--blue);margin:0 0 16px;
+}
+#bm-help h1,#bm-help h2,#bm-help h3{
+  font-family:'Outfit',ui-sans-serif,system-ui,sans-serif;
+  font-weight:700;margin:0 0 18px;letter-spacing:-.01em;color:var(--ink);
+}
+#bm-help .bm-gold{color:var(--gold)}
+
+/* ── language switch ──────────────────────────────────────────────── */
+#bm-help .bm-radio{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+#bm-en:checked ~ .bm-page [lang="es"]{display:none !important}
+#bm-es:checked ~ .bm-page [lang="en"]{display:none !important}
+
+#bm-help .bm-switch{
+  display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;
+  padding:3px;background:rgba(20,32,58,.85);
+}
+#bm-help .bm-switch label{
+  font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;font-weight:700;
+  letter-spacing:.12em;padding:7px 14px;border-radius:999px;cursor:pointer;
+  color:var(--soft);user-select:none;line-height:1;
+}
+#bm-help .bm-switch label:hover{color:var(--ink)}
+#bm-en:checked ~ .bm-page label[for="bm-en"],
+#bm-es:checked ~ .bm-page label[for="bm-es"]{background:var(--blue);color:#0E1A30}
+#bm-en:focus-visible ~ .bm-page label[for="bm-en"],
+#bm-es:focus-visible ~ .bm-page label[for="bm-es"]{outline:2px solid var(--gold);outline-offset:2px}
+
+/* floating copy of the switch, always reachable while scrolling */
+#bm-help .bm-float{
+  position:fixed;right:18px;bottom:18px;z-index:50;
+  box-shadow:0 10px 28px rgba(0,0,0,.35);
+}
+
+/* ── top bar + hero ───────────────────────────────────────────────── */
+#bm-help .bm-hero{
+  background:
+    radial-gradient(1100px 560px at 84% -10%, rgba(91,188,214,.20), transparent 60%),
+    radial-gradient(760px 420px at 6% 6%, rgba(240,168,48,.10), transparent 58%),
+    var(--navy);
+  border-bottom:1px solid var(--line);
+  padding:26px 0 74px;
+}
+#bm-help .bm-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:64px}
+#bm-help .bm-logo{height:36px;width:auto;display:block}
+#bm-help .bm-hero-inner{text-align:center}
+#bm-help .bm-hero h1{
+  font-size:clamp(34px,5.4vw,58px);line-height:1.08;
+  max-width:820px;margin:0 auto 20px;
+}
+#bm-help .bm-sub{
+  font-size:clamp(17px,2vw,20px);color:var(--soft);
+  max-width:620px;margin:0 auto 34px;
+}
+#bm-help .bm-cta{
+  display:inline-block;
+  background:linear-gradient(90deg,var(--blue),var(--gold));
+  color:#0E1A30 !important;font-weight:800;font-size:15px;
+  padding:15px 28px;border-radius:12px;text-decoration:none;letter-spacing:.01em;
+}
+#bm-help .bm-cta:hover{opacity:.92}
+#bm-help .bm-more{
+  display:block;margin-top:20px;font-size:13.5px;color:var(--faint);text-decoration:none;
+}
+#bm-help .bm-more:hover{color:var(--ink)}
+#bm-help .bm-facts{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:44px auto 0;max-width:820px;
+  list-style:none;padding:0;
+}
+#bm-help .bm-facts li{
+  border:1px solid var(--line-strong);border-radius:999px;padding:7px 14px;
+  font-size:13.5px;color:var(--soft);
+}
+
+/* ── generic section ──────────────────────────────────────────────── */
+#bm-help .bm-sec{padding:72px 0;border-bottom:1px solid var(--line)}
+#bm-help .bm-sec h2{font-size:clamp(26px,3.6vw,40px);line-height:1.14;max-width:700px}
+#bm-help .bm-lead{font-size:17px;color:var(--soft);max-width:640px;margin-bottom:0}
+
+/* ── how it works ─────────────────────────────────────────────────── */
+#bm-help .bm-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+#bm-help .bm-step{border-top:2px solid var(--blue);padding-top:18px}
+#bm-help .bm-step .bm-n{
+  font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:var(--gold);
+  letter-spacing:.12em;margin-bottom:8px;
+}
+#bm-help .bm-step h3{font-size:19px;margin-bottom:8px}
+#bm-help .bm-step p{font-size:15px;color:var(--faint)}
+
+/* ── the menu ─────────────────────────────────────────────────────── */
+#bm-help .bm-menu-sec{background:var(--navy)}
+#bm-help .bm-pick{
+  display:inline-block;margin-top:22px;background:rgba(240,168,48,.12);
+  border:1px solid rgba(240,168,48,.45);color:var(--gold);border-radius:10px;
+  padding:9px 14px;font-weight:600;font-size:14.5px;
+}
+#bm-help .bm-menu{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:34px}
+#bm-help .bm-item{
+  background:var(--navy-card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;
+}
+#bm-help .bm-item-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+#bm-help .bm-item-num{
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:34px;line-height:1;color:var(--gold);
+}
+#bm-help .bm-item h3{font-size:21px;line-height:1.2;margin:0}
+#bm-help .bm-item-tag{
+  font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--blue);margin:0 0 18px 0;
+}
+#bm-help .bm-item ul{list-style:none;margin:0;padding:0}
+#bm-help .bm-item li{
+  padding:13px 0 13px 18px;border-top:1px dashed var(--line);position:relative;
+}
+#bm-help .bm-item li::before{
+  content:"";position:absolute;left:0;top:21px;width:7px;height:7px;border-radius:2px;
+  background:var(--blue);
+}
+#bm-help .bm-item li strong{display:block;font-size:15.5px;color:var(--ink);margin-bottom:2px}
+#bm-help .bm-item li span{font-size:14.5px;color:var(--faint)}
+
+/* ── day in the life ──────────────────────────────────────────────── */
+#bm-help .bm-combo{
+  display:inline-flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;
+}
+#bm-help .bm-chip{
+  background:var(--navy-lift);border:1px solid var(--line-strong);border-radius:999px;
+  padding:6px 13px;font-size:13.5px;color:var(--ink);
+}
+#bm-help .bm-chip b{color:var(--gold);font-weight:700;margin-right:6px}
+#bm-help .bm-day{margin-top:36px;border-left:2px solid var(--line-strong);padding-left:0;list-style:none}
+#bm-help .bm-day li{
+  display:grid;grid-template-columns:110px 1fr;gap:18px;padding:16px 0 16px 22px;position:relative;
+}
+#bm-help .bm-day li::before{
+  content:"";position:absolute;left:-7px;top:23px;width:12px;height:12px;border-radius:50%;
+  background:var(--navy-deep);border:2px solid var(--blue);
+}
+#bm-help .bm-time{
+  font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:var(--gold);
+  letter-spacing:.06em;padding-top:2px;
+}
+#bm-help .bm-day strong{display:block;font-size:16px;margin-bottom:2px}
+#bm-help .bm-day span{font-size:14.5px;color:var(--faint)}
+#bm-help .bm-area{
+  display:inline-block;font-family:'Geist Mono',ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-top:6px;
+}
+#bm-help .bm-note{font-size:13.5px;color:var(--faint);margin-top:22px}
+
+/* ── what comes with every coordinator ────────────────────────────── */
+#bm-help .bm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+#bm-help .bm-card{background:var(--navy-card);border:1px solid var(--line);border-radius:16px;padding:24px 22px}
+#bm-help .bm-card h3{font-size:18px;margin-bottom:8px}
+#bm-help .bm-card p{font-size:14.5px;color:var(--faint);margin:0}
+#bm-help .bm-tools{margin-top:34px}
+#bm-help .bm-tools p{font-size:14px;color:var(--faint);margin-bottom:12px}
+#bm-help .bm-tools ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0}
+#bm-help .bm-tools li{
+  font-size:13.5px;color:var(--soft);border:1px solid var(--line);border-radius:8px;padding:6px 11px;
+}
+
+/* ── FAQ ──────────────────────────────────────────────────────────── */
+#bm-help .bm-faq{margin-top:30px;max-width:820px}
+#bm-help .bm-faq details{border-top:1px solid var(--line)}
+#bm-help .bm-faq details:last-child{border-bottom:1px solid var(--line)}
+#bm-help .bm-faq summary{
+  list-style:none;cursor:pointer;padding:20px 40px 20px 0;position:relative;
+  font-family:'Outfit',sans-serif;font-weight:600;font-size:18px;color:var(--ink);
+}
+#bm-help .bm-faq summary::-webkit-details-marker{display:none}
+#bm-help .bm-faq summary::after{
+  content:"+";position:absolute;right:4px;top:15px;font-size:26px;font-weight:400;color:var(--blue);
+}
+#bm-help .bm-faq details[open] summary::after{content:"\2212"}
+#bm-help .bm-faq .bm-ans{padding:0 0 22px;font-size:15.5px;color:var(--soft);max-width:720px}
+
+/* ── closing CTA + footer ─────────────────────────────────────────── */
+#bm-help .bm-close{
+  background:
+    radial-gradient(900px 460px at 18% 110%, rgba(240,168,48,.12), transparent 60%),
+    var(--navy);
+  padding:84px 0 74px;text-align:center;
+}
+#bm-help .bm-close h2{max-width:700px;margin:0 auto 14px;font-size:clamp(28px,4.2vw,44px);line-height:1.12}
+#bm-help .bm-close .bm-sub{margin-bottom:30px}
+#bm-help .bm-tagline{
+  font-family:'Outfit',sans-serif;font-weight:600;color:var(--blue);font-size:15px;margin:26px 0 0;
+}
+#bm-help .bm-foot{padding:26px 0 90px;text-align:center;font-size:13px;color:var(--faint)}
+#bm-help .bm-foot p{margin:0 0 4px}
+#bm-help .bm-foot a{color:var(--soft);text-decoration:none}
+
+/* ── responsive ───────────────────────────────────────────────────── */
+@media (max-width:860px){
+  #bm-help .bm-menu,#bm-help .bm-grid,#bm-help .bm-steps{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  #bm-help .bm-wrap{padding:0 16px}
+  #bm-help .bm-top{margin-bottom:44px}
+  #bm-help .bm-logo{height:30px}
+  #bm-help .bm-sec{padding:56px 0}
+  #bm-help .bm-item{padding:22px 18px}
+  #bm-help .bm-day li{grid-template-columns:1fr;gap:4px}
+  #bm-help .bm-float{right:12px;bottom:12px}
+}
+</style>
+
+<div id="bm-help">
+  <input class="bm-radio" type="radio" name="bm-lang" id="bm-en" checked aria-label="English">
+  <input class="bm-radio" type="radio" name="bm-lang" id="bm-es" aria-label="Español">
+
+  <div class="bm-page">
+
+    <!-- floating language switch -->
+    <div class="bm-switch bm-float">
+      <label for="bm-en">EN</label>
+      <label for="bm-es">ES</label>
+    </div>
+
+    <!-- ══ HERO ═══════════════════════════════════════════════════════ -->
+    <div class="bm-hero">
+      <div class="bm-wrap">
+        <div class="bm-top">
+          <a href="https://betmeservices.com"><img class="bm-logo" src="https://assets.cdn.filesafe.space/aStaZagxlnAITYYGtub2/media/6a2c202c96783b1af5761521.png" alt="BetMe Services"></a>
+          <div class="bm-switch">
+            <label for="bm-en">EN</label>
+            <label for="bm-es">ES</label>
+          </div>
+        </div>
+
+        <div class="bm-hero-inner">
+          <p class="bm-eyebrow"><span lang="en">How we help</span><span lang="es">Cómo te ayudamos</span></p>
+          <h1>
+            <span lang="en">Pick your two biggest headaches. <span class="bm-gold">We take them off your plate.</span></span>
+            <span lang="es">Elige tus dos mayores dolores de cabeza. <span class="bm-gold">Nosotros nos encargamos.</span></span>
+          </h1>
+          <p class="bm-sub">
+            <span lang="en">One dedicated, full-time, bilingual coordinator works inside your business, on your hours, only for you. You choose the two areas they own.</span>
+            <span lang="es">Un coordinador bilingüe, dedicado y a tiempo completo trabaja dentro de tu negocio, en tu horario y solo para ti. Tú eliges las dos áreas que maneja.</span>
+          </p>
+          <a class="bm-cta" href="https://link.betmeservices.com/widget/bookings/betme-discovery">
+            <span lang="en">Book a discovery call</span><span lang="es">Agenda una llamada</span>
+          </a>
+          <a class="bm-more" href="#bm-menu">
+            <span lang="en">See the menu ↓</span><span lang="es">Ver el menú ↓</span>
+          </a>
+          <ul class="bm-facts">
+            <li><span lang="en">40 hours a week</span><span lang="es">40 horas a la semana</span></li>
+            <li><span lang="en">No shared clients</span><span lang="es">Sin clientes compartidos</span></li>
+            <li><span lang="en">PST · CST · EST hours</span><span lang="es">Horario PST · CST · EST</span></li>
+            <li><span lang="en">English + Spanish</span><span lang="es">Inglés + español</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ HOW IT WORKS ═══════════════════════════════════════════════ -->
+    <div class="bm-sec">
+      <div class="bm-wrap">
+        <p class="bm-eyebrow"><span lang="en">How it works</span><span lang="es">Cómo funciona</span></p>
+        <h2>
+          <span lang="en">Two focus areas. One person who owns them.</span>
+          <span lang="es">Dos áreas de enfoque. Una persona responsable de ellas.</span>
+        </h2>
+        <p class="bm-lead">
+          <span lang="en">Spreading one person across everything means constant context switching and nothing done well. Two areas keeps the focus sharp, so the work actually gets finished.</span>
+          <span lang="es">Repartir a una persona en todo significa saltar de tarea en tarea y no terminar nada bien. Con dos áreas el enfoque se mantiene y el trabajo de verdad se termina.</span>
+        </p>
+        <div class="bm-steps">
+          <div class="bm-step">
+            <div class="bm-n">01</div>
+            <h3><span lang="en">Choose your top 2</span><span lang="es">Elige tus 2 áreas</span></h3>
+            <p>
+              <span lang="en">Pick from the menu below, based on what's eating most of your week right now.</span>
+              <span lang="es">Escoge del menú de abajo según lo que más tiempo te está quitando hoy.</span>
+            </p>
+          </div>
+          <div class="bm-step">
+            <div class="bm-n">02</div>
+            <h3><span lang="en">Meet your coordinator</span><span lang="es">Conoce a tu coordinador</span></h3>
+            <p>
+              <span lang="en">A full-time team member from El Salvador, Guatemala or Honduras, assigned only to your business.</span>
+              <span lang="es">Un miembro del equipo a tiempo completo desde El Salvador, Guatemala u Honduras, asignado solo a tu negocio.</span>
+            </p>
+          </div>
+          <div class="bm-step">
+            <div class="bm-n">03</div>
+            <h3><span lang="en">Get your time back</span><span lang="es">Recupera tu tiempo</span></h3>
+            <p>
+              <span lang="en">They run those two areas day to day, backed by a BetMe supervisor and monthly check-ins.</span>
+              <span lang="es">Maneja esas dos áreas día a día, con el respaldo de un supervisor de BetMe y revisiones mensuales.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ THE MENU ═══════════════════════════════════════════════════ -->
+    <div class="bm-sec bm-menu-sec" id="bm-menu">
+      <div class="bm-wrap">
+        <p class="bm-eyebrow"><span lang="en">The support menu</span><span lang="es">El menú de apoyo</span></p>
+        <h2>
+          <span lang="en">This is what help looks like.</span>
+          <span lang="es">Así se ve la ayuda.</span>
+        </h2>
+        <p class="bm-lead">
+          <span lang="en">Four focus areas, each with the work your coordinator takes over.</span>
+          <span lang="es">Cuatro áreas de enfoque, cada una con el trabajo que tu coordinador toma a su cargo.</span>
+        </p>
+        <div class="bm-pick"><span lang="en">Choose any 2</span><span lang="es">Elige 2, las que quieras</span></div>
+
+        <div class="bm-menu">
+
+          <!-- 01 Operations -->
+          <div class="bm-item">
+            <div class="bm-item-head">
+              <div class="bm-item-num">01</div>
+              <h3><span lang="en">Project &amp; Workflow Coordination</span><span lang="es">Coordinación de proyectos y procesos</span></h3>
+            </div>
+            <p class="bm-item-tag"><span lang="en">Operations</span><span lang="es">Operaciones</span></p>
+            <ul>
+              <li>
+                <strong><span lang="en">Task &amp; deliverable tracking</span><span lang="es">Seguimiento de tareas y entregables</span></strong>
+                <span lang="en">Keeps your Hive, Asana or Trello boards current, with every project, deadline and multi-step deliverable accounted for.</span>
+                <span lang="es">Mantiene al día tus tableros de Hive, Asana o Trello, con cada proyecto, fecha límite y entregable bajo control.</span>
+              </li>
+              <li>
+                <strong><span lang="en">SOPs &amp; process documentation</span><span lang="es">Procedimientos (SOPs) y documentación</span></strong>
+                <span lang="en">Drafts and organizes your standard operating procedures so daily work stays clear, documented and repeatable.</span>
+                <span lang="es">Redacta y organiza tus procedimientos para que el trabajo diario quede claro, documentado y se pueda repetir.</span>
+              </li>
+              <li>
+                <strong><span lang="en">Client document chasing</span><span lang="es">Recolección de documentos de clientes</span></strong>
+                <span lang="en">Follows up with your clients for missing bank statements, tax records and intake forms. No financial reporting involved.</span>
+                <span lang="es">Da seguimiento a tus clientes para obtener estados de cuenta, registros fiscales y formularios pendientes. No incluye reportes financieros.</span>
+              </li>
+              <li>
+                <strong><span lang="en">Industry-specific workflows</span><span lang="es">Procesos propios de tu industria</span></strong>
+                <span lang="en">Custom admin workflows like audition and talent schedules for entertainment ventures, or project rosters.</span>
+                <span lang="es">Procesos administrativos a la medida, como agendas de audiciones y talento para entretenimiento, o listas de proyectos.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 02 Executive admin -->
+          <div class="bm-item">
+            <div class="bm-item-head">
+              <div class="bm-item-num">02</div>
+              <h3><span lang="en">Executive Administration &amp; Calendar</span><span lang="es">Asistencia ejecutiva y agenda</span></h3>
+            </div>
+            <p class="bm-item-tag"><span lang="en">Admin</span><span lang="es">Administración</span></p>
+            <ul>
+              <li>
+                <strong><span lang="en">Calendar &amp; meeting logistics</span><span lang="es">Agenda y logística de reuniones</span></strong>
+                <span lang="en">Manages your calendar, books client discovery calls, resolves conflicts and handles meeting logistics.</span>
+                <span lang="es">Maneja tu agenda, programa llamadas con clientes, resuelve choques de horario y coordina la logística de reuniones.</span>
+              </li>
+              <li>
+                <strong><span lang="en">Inbox &amp; communication filtering</span><span lang="es">Filtro de correo y comunicaciones</span></strong>
+                <span lang="en">Sorts incoming email, flags priority client messages and handles routine requests, so your focus stays protected.</span>
+                <span lang="es">Ordena tu correo, marca los mensajes prioritarios de clientes y resuelve solicitudes de rutina para proteger tu enfoque.</span>
+              </li>
+              <li>
+                <strong><span lang="en">Document &amp; file management</span><span lang="es">Manejo de documentos y archivos</span></strong>
+                <span lang="en">Keeps records, client folders and shared Google Workspace files organized, secure and audit-ready.</span>
+                <span lang="es">Mantiene registros, carpetas de clientes y archivos de Google Workspace ordenados, seguros y listos para auditoría.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 03 Marketing -->
+          <div class="bm-item">
+            <div class="bm-item-head">
+              <div class="bm-item-num">03</div>
+              <h3><span lang="en">Marketing &amp; Social Media Support</span><span lang="es">Marketing y redes sociales</span></h3>
+            </div>
+            <p class="bm-item-tag"><span lang="en">Growth</span><span lang="es">Crecimiento</span></p>
+            <ul>
+              <li>
+                <strong><span lang="en">Social media scheduling</span><span lang="es">Programación de redes sociales</span></strong>
+                <span lang="en">Drafts, formats and schedules regular posts on LinkedIn, Facebook or Instagram, using your approved graphics and messaging.</span>
+                <span lang="es">Redacta, da formato y programa publicaciones en LinkedIn, Facebook o Instagram con tus gráficos y mensajes aprobados.</span>
+              </li>
+              <li>
+                <strong><span lang="en">Content sourcing &amp; assets</span><span lang="es">Contenido y recursos digitales</span></strong>
+                <span lang="en">Organizes photos, testimonials, case studies, before-and-afters and project walkthroughs for a consistent brand.</span>
+                <span lang="es">Organiza fotos, testimonios, casos de éxito, antes y después y recorridos de proyectos para una marca consistente.</span>
+              </li>
+              <li>
+                <strong><span lang="en">Email marketing &amp; newsletters</span><span lang="es">Email marketing y boletines</span></strong>
+                <span lang="en">Formats and sends newsletters, promotions and email sequences in Mailchimp or your CRM's email builder.</span>
+                <span lang="es">Prepara y envía boletines, promociones y secuencias de correo en Mailchimp o en el editor de tu CRM.</span>
+              </li>
+              <li>
+                <strong><span lang="en">Brand consistency &amp; outreach</span><span lang="es">Consistencia de marca y alcance</span></strong>
+                <span lang="en">Supports local outreach and digital campaigns, so your brand stays visible without pulling you away from the business.</span>
+                <span lang="es">Apoya campañas locales y digitales para que tu marca siga visible sin sacarte de la operación.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 04 Client intake -->
+          <div class="bm-item">
+            <div class="bm-item-head">
+              <div class="bm-item-num">04</div>
+              <h3><span lang="en">Client Intake &amp; CRM Management</span><span lang="es">Atención a clientes nuevos y CRM</span></h3>
+            </div>
+            <p class="bm-item-tag"><span lang="en">Clients</span><span lang="es">Clientes</span></p>
+            <ul>
+              <li>
+                <strong><span lang="en">Rapid lead response</span><span lang="es">Respuesta rápida a prospectos</span></strong>
+                <span lang="en">Watches web, email and text inquiries and answers promptly, so no lead falls through the cracks.</span>
+                <span lang="es">Vigila las consultas por web, correo y mensaje de texto y responde rápido para que ningún prospecto se pierda.</span>
+              </li>
+              <li>
+                <strong><span lang="en">CRM pipeline upkeep</span><span lang="es">Mantenimiento del CRM</span></strong>
+                <span lang="en">Keeps contacts, referral sources and lead statuses accurate in Salesforce, DripJobs, GoHighLevel and similar tools.</span>
+                <span lang="es">Mantiene al día contactos, fuentes de referidos y estados de prospectos en Salesforce, DripJobs, GoHighLevel y similares.</span>
+              </li>
+              <li>
+                <strong><span lang="en">Onboarding logistics</span><span lang="es">Logística de bienvenida</span></strong>
+                <span lang="en">Sends welcome packages, coordinates first questionnaires and tracks each new client's onboarding step by step.</span>
+                <span lang="es">Envía paquetes de bienvenida, coordina los primeros cuestionarios y da seguimiento paso a paso a cada cliente nuevo.</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ A DAY IN THE LIFE ══════════════════════════════════════════ -->
+    <div class="bm-sec">
+      <div class="bm-wrap">
+        <p class="bm-eyebrow"><span lang="en">A day in the life</span><span lang="es">Un día de trabajo</span></p>
+        <h2>
+          <span lang="en">What a Tuesday could look like.</span>
+          <span lang="es">Así podría verse un martes.</span>
+        </h2>
+        <p class="bm-lead">
+          <span lang="en">An example for a business owner who picked these two areas:</span>
+          <span lang="es">Un ejemplo para alguien que eligió estas dos áreas:</span>
+        </p>
+        <div class="bm-combo">
+          <div class="bm-chip"><b>01</b><span lang="en">Project &amp; Workflow</span><span lang="es">Proyectos y procesos</span></div>
+          <div class="bm-chip"><b>04</b><span lang="en">Client Intake &amp; CRM</span><span lang="es">Clientes nuevos y CRM</span></div>
+        </div>
+
+        <ul class="bm-day">
+          <li>
+            <div class="bm-time">8:00 AM</div>
+            <div>
+              <strong><span lang="en">Overnight leads, answered</span><span lang="es">Prospectos de la noche, atendidos</span></strong>
+              <span lang="en">Replies to the web and text inquiries that came in after hours and logs each one in your CRM.</span>
+              <span lang="es">Responde las consultas por web y texto que llegaron fuera de horario y registra cada una en tu CRM.</span>
+              <div class="bm-area"><span lang="en">Client intake</span><span lang="es">Clientes nuevos</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="bm-time">9:30 AM</div>
+            <div>
+              <strong><span lang="en">Project board check</span><span lang="es">Revisión del tablero</span></strong>
+              <span lang="en">Updates the Asana board and flags the two deliverables due Thursday that are still missing pieces.</span>
+              <span lang="es">Actualiza el tablero de Asana y señala los dos entregables del jueves a los que todavía les falta algo.</span>
+              <div class="bm-area"><span lang="en">Operations</span><span lang="es">Operaciones</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="bm-time">11:00 AM</div>
+            <div>
+              <strong><span lang="en">Missing documents, chased</span><span lang="es">Documentos pendientes, solicitados</span></strong>
+              <span lang="en">Follows up with three clients for the intake forms and records their files still need.</span>
+              <span lang="es">Da seguimiento a tres clientes por los formularios y registros que aún faltan en sus expedientes.</span>
+              <div class="bm-area"><span lang="en">Operations</span><span lang="es">Operaciones</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="bm-time">1:00 PM</div>
+            <div>
+              <strong><span lang="en">New client welcomed</span><span lang="es">Bienvenida a un cliente nuevo</span></strong>
+              <span lang="en">Sends Monday's new client their welcome package and first questionnaire, and marks the step done.</span>
+              <span lang="es">Envía al cliente nuevo del lunes su paquete de bienvenida y el primer cuestionario, y marca el paso como completado.</span>
+              <div class="bm-area"><span lang="en">Client intake</span><span lang="es">Clientes nuevos</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="bm-time">2:30 PM</div>
+            <div>
+              <strong><span lang="en">A process, written down</span><span lang="es">Un proceso, por escrito</span></strong>
+              <span lang="en">Turns the process you walked through on yesterday's Zoom into a clear SOP your team can follow.</span>
+              <span lang="es">Convierte el proceso que explicaste ayer por Zoom en un procedimiento claro que tu equipo puede seguir.</span>
+              <div class="bm-area"><span lang="en">Operations</span><span lang="es">Operaciones</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="bm-time">4:30 PM</div>
+            <div>
+              <strong><span lang="en">Pipeline cleaned up</span><span lang="es">CRM al día</span></strong>
+              <span lang="en">Updates lead statuses and referral sources, so tomorrow starts with an accurate pipeline.</span>
+              <span lang="es">Actualiza el estado de los prospectos y sus fuentes de referido para que mañana empiece con datos correctos.</span>
+              <div class="bm-area"><span lang="en">Client intake</span><span lang="es">Clientes nuevos</span></div>
+            </div>
+          </li>
+        </ul>
+        <p class="bm-note">
+          <span lang="en">Example only. Your coordinator's day is built around the two areas you choose.</span>
+          <span lang="es">Solo es un ejemplo. El día de tu coordinador se arma alrededor de las dos áreas que elijas.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ══ WHAT COMES WITH EVERY COORDINATOR ══════════════════════════ -->
+    <div class="bm-sec bm-menu-sec">
+      <div class="bm-wrap">
+        <p class="bm-eyebrow"><span lang="en">Included every time</span><span lang="es">Siempre incluido</span></p>
+        <h2>
+          <span lang="en">What comes with every coordinator.</span>
+          <span lang="es">Lo que trae cada coordinador.</span>
+        </h2>
+        <div class="bm-grid">
+          <div class="bm-card">
+            <h3><span lang="en">Yours alone</span><span lang="es">Solo para ti</span></h3>
+            <p>
+              <span lang="en">Assigned exclusively to your business. No juggling other clients' demands.</span>
+              <span lang="es">Asignado exclusivamente a tu negocio. Sin atender las demandas de otros clientes.</span>
+            </p>
+          </div>
+          <div class="bm-card">
+            <h3><span lang="en">Full-time, your hours</span><span lang="es">Tiempo completo, tu horario</span></h3>
+            <p>
+              <span lang="en">40 hours a week during PST, CST or EST business hours.</span>
+              <span lang="es">40 horas a la semana en horario laboral PST, CST o EST.</span>
+            </p>
+          </div>
+          <div class="bm-card">
+            <h3><span lang="en">Fluent in both languages</span><span lang="es">Fluido en ambos idiomas</span></h3>
+            <p>
+              <span lang="en">Full English and Spanish fluency, written and spoken, on email and on the phone.</span>
+              <span lang="es">Inglés y español fluidos, escritos y hablados, por correo y por teléfono.</span>
+            </p>
+          </div>
+          <div class="bm-card">
+            <h3><span lang="en">Equipment covered</span><span lang="es">Equipo incluido</span></h3>
+            <p>
+              <span lang="en">Computer, core software and paid marketing and AI tools are provided by BetMe.</span>
+              <span lang="es">La computadora, el software base y las herramientas de marketing e IA los pone BetMe.</span>
+            </p>
+          </div>
+          <div class="bm-card">
+            <h3><span lang="en">Supervised &amp; supported</span><span lang="es">Con supervisión y apoyo</span></h3>
+            <p>
+              <span lang="en">A dedicated BetMe supervisor and monthly check-ins keep the quality up.</span>
+              <span lang="es">Un supervisor de BetMe dedicado y revisiones mensuales mantienen la calidad.</span>
+            </p>
+          </div>
+          <div class="bm-card">
+            <h3><span lang="en">Process-driven</span><span lang="es">Orientado a procesos</span></h3>
+            <p>
+              <span lang="en">Organized, detail-oriented and comfortable working independently, remotely.</span>
+              <span lang="es">Organizado, detallista y acostumbrado a trabajar de forma independiente y remota.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="bm-tools">
+          <p><span lang="en">Already comfortable in the tools you use:</span><span lang="es">Ya maneja las herramientas que usas:</span></p>
+          <ul>
+            <li>Google Workspace</li>
+            <li>Microsoft 365</li>
+            <li>Power BI</li>
+            <li>Looker Studio</li>
+            <li>Asana</li>
+            <li>Trello</li>
+            <li>Hive</li>
+            <li>GoHighLevel</li>
+            <li>Salesforce</li>
+            <li>DripJobs</li>
+            <li>Mailchimp</li>
+            <li>Zoom</li>
+            <li>Slack</li>
+            <li>WhatsApp</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ FAQ ════════════════════════════════════════════════════════ -->
+    <div class="bm-sec">
+      <div class="bm-wrap">
+        <p class="bm-eyebrow"><span lang="en">Questions</span><span lang="es">Preguntas</span></p>
+        <h2>
+          <span lang="en">What people usually ask us.</span>
+          <span lang="es">Lo que más nos preguntan.</span>
+        </h2>
+        <div class="bm-faq">
+          <details>
+            <summary><span lang="en">Why only two focus areas?</span><span lang="es">¿Por qué solo dos áreas?</span></summary>
+            <div class="bm-ans">
+              <span lang="en">Because focus is the point. One person covering everything ends up switching tasks all day and finishing little. Two areas lets your coordinator go deep and own the results.</span>
+              <span lang="es">Porque el enfoque es lo importante. Una persona que cubre todo termina saltando de tarea en tarea y terminando poco. Con dos áreas tu coordinador profundiza y se hace responsable de los resultados.</span>
+            </div>
+          </details>
+          <details>
+            <summary><span lang="en">Will my coordinator work for other clients too?</span><span lang="es">¿Mi coordinador trabajará también para otros clientes?</span></summary>
+            <div class="bm-ans">
+              <span lang="en">No. Your coordinator is dedicated full-time to your business only. No shared clients.</span>
+              <span lang="es">No. Tu coordinador se dedica a tiempo completo solo a tu negocio. No compartimos coordinadores entre clientes.</span>
+            </div>
+          </details>
+          <details>
+            <summary><span lang="en">What hours do they work?</span><span lang="es">¿En qué horario trabajan?</span></summary>
+            <div class="bm-ans">
+              <span lang="en">40 hours a week during your business hours, Pacific, Central or Eastern time.</span>
+              <span lang="es">40 horas a la semana en tu horario laboral, ya sea hora del Pacífico, Central o del Este de EE.&nbsp;UU.</span>
+            </div>
+          </details>
+          <details>
+            <summary><span lang="en">Where are coordinators based?</span><span lang="es">¿Dónde están los coordinadores?</span></summary>
+            <div class="bm-ans">
+              <span lang="en">They work remotely from El Salvador, Guatemala or Honduras, and are fully fluent in English and Spanish.</span>
+              <span lang="es">Trabajan de forma remota desde El Salvador, Guatemala u Honduras, y hablan inglés y español con fluidez.</span>
+            </div>
+          </details>
+          <details>
+            <summary><span lang="en">Do I need to buy equipment or software?</span><span lang="es">¿Tengo que comprar equipo o software?</span></summary>
+            <div class="bm-ans">
+              <span lang="en">No. BetMe provides the computer, core software and paid marketing and AI tools. You just give your coordinator access to the systems your business already uses.</span>
+              <span lang="es">No. BetMe pone la computadora, el software base y las herramientas de marketing e IA. Tú solo le das acceso a los sistemas que ya usa tu negocio.</span>
+            </div>
+          </details>
+          <details>
+            <summary><span lang="en">Can I change my two areas later?</span><span lang="es">¿Puedo cambiar mis dos áreas después?</span></summary>
+            <div class="bm-ans">
+              <span lang="en">Yes. Priorities change as your business grows. Tell us, and we'll adjust your coordinator's focus with you.</span>
+              <span lang="es">Sí. Las prioridades cambian a medida que tu negocio crece. Avísanos y ajustamos contigo el enfoque de tu coordinador.</span>
+            </div>
+          </details>
+          <details>
+            <summary><span lang="en">Is there anything they don't do?</span><span lang="es">¿Hay algo que no hagan?</span></summary>
+            <div class="bm-ans">
+              <span lang="en">They collect documents from your clients, but they don't prepare financial reports. On the discovery call we'll check that what you need fits the menu.</span>
+              <span lang="es">Recolectan documentos de tus clientes, pero no preparan reportes financieros. En la llamada revisamos juntos que lo que necesitas encaje con el menú.</span>
+            </div>
+          </details>
+          <details>
+            <summary><span lang="en">How much does it cost?</span><span lang="es">¿Cuánto cuesta?</span></summary>
+            <div class="bm-ans">
+              <span lang="en">We go over pricing on the discovery call, once we know which two areas you need.</span>
+              <span lang="es">Vemos el precio en la llamada inicial, cuando ya sabemos qué dos áreas necesitas.</span>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CLOSING CTA ════════════════════════════════════════════════ -->
+    <div class="bm-close">
+      <div class="bm-wrap">
+        <h2>
+          <span lang="en">Which two would you hand off <span class="bm-gold">first?</span></span>
+          <span lang="es">¿Cuáles dos delegarías <span class="bm-gold">primero?</span></span>
+        </h2>
+        <p class="bm-sub">
+          <span lang="en">Tell us on a short call. We'll map your top two and show you how your coordinator would run them.</span>
+          <span lang="es">Cuéntanos en una llamada corta. Definimos tus dos áreas y te mostramos cómo las manejaría tu coordinador.</span>
+        </p>
+        <a class="bm-cta" href="https://link.betmeservices.com/widget/bookings/betme-discovery">
+          <span lang="en">Book a discovery call</span><span lang="es">Agenda una llamada</span>
+        </a>
+        <p class="bm-tagline">Don't Grow Alone, Grow Remote.</p>
+      </div>
+    </div>
+
+    <div class="bm-foot">
+      <div class="bm-wrap">
+        <p><span lang="en">BetMe Services · Bilingual remote talent for growing U.S. businesses</span><span lang="es">BetMe Services · Talento remoto bilingüe para negocios en crecimiento en EE.&nbsp;UU.</span></p>
+        <p><a href="https://betmeservices.com">betmeservices.com</a></p>
+      </div>
+    </div>
+
+  </div>
+</div>
